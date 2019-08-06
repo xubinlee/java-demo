@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "9198ab1a-eca9-45c4-b024-4f128f317efa",
+		"name": "es_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "创建索引",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"settings\":{\n\t\t\"number_of_shards\":3,\n\t\t\"number_of_replicas\":1\n\t},\n\t\"mappings\":{\n\t\t\"man\":{\n\t\t\t\"properties\":{\n\t\t\t\t\"name\":{\n\t\t\t\t\t\"type\":\"text\"\n\t\t\t\t},\n\t\t\t\t\"country\":{\n\t\t\t\t\t\"type\":\"keyword\"\n\t\t\t\t},\n\t\t\t\t\"age\":{\n\t\t\t\t\t\"type\":\"integer\"\n\t\t\t\t},\n\t\t\t\t\"date\":{\n\t\t\t\t\t\"type\":\"date\",\n\t\t\t\t\t\"format\":\"yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t\"woman\":{\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/people",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "插入",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"lxb\",\n\t\"country\":\"China\",\n\t\"age\":19,\n\t\"date\":\"2019-08-02\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/people/man/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"people",
+						"man",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "指定文档id修改",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"doc\":{\n\t\t\"name\":\"阿彬哥\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/people/man/1/_update",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"people",
+						"man",
+						"1",
+						"_update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "脚本方式修改",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"script\":{\n\t\t\"lang\":\"painless\",\n\t\t\"inline\":\"ctx._source.age =params.age\",\n\t\t\"params\":{\n\t\t\t\"age\":18\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/people/man/1/_update",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"people",
+						"man",
+						"1",
+						"_update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除文档",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:9200/people/man/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"people",
+						"man",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除索引",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:9200/book",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "条件查询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\":{\n\t\t\"match\":{\n\t\t\t\"title\":\"十\"\n\t\t}\n\t},\n\t\"sort\":[{\n\t\t\"publish_date\":{\n\t\t\t\"order\":\"desc\"\n\t\t}\n\t}]\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/book/_search",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"book",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "聚合查询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"aggs\":{\n\t\t\"group_by_word_count\":{\n\t\t\t\"terms\":{\n\t\t\t\t\"field\":\"word_count\"\n\t\t\t}\n\t\t},\n\t\t\"group_by_publish_date\":{\n\t\t\t\"terms\":{\n\t\t\t\t\"field\":\"publish_date\"\n\t\t\t}\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/book/_search",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"book",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "习语匹配查询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\":{\n\t\t\"match_phrase\":{\n\t\t\t\"title\":\"java入门\"\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/book/_search",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"book",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "多字段模糊查询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\":{\n\t\t\"multi_match\":{\n\t\t\t\"query\":\"孙悟空\",\n\t\t\t\"fields\":[\"author\",\"title\"]\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/book/_search",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"book",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "语法查询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\":{\n\t\t\"query_string\":{\n\t\t\t\"query\":\"十 Or 入门\",\n\t\t\t\"fields\":[\"author\",\"title\"]\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/book/_search",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"book",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "范围查询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\":{\n\t\t\"range\":{\n\t\t\t\"word_count\":{\n\t\t\t\t\"gte\":1000,\n\t\t\t\t\"lte\":5000\n\t\t\t}\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/book/_search",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"book",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter查询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\":{\n\t\t\"bool\":{\n\t\t\t\"filter\":{\n\t\t\t\t\"term\":{\n\t\t\t\t\t\"word_count\":1000\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:9200/book/_search",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"book",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
