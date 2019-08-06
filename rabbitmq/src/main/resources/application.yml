@@ -1,0 +1,282 @@
+# 基本配置
+server:
+  port: 8080
+  servlet:
+    context-path: /mq
+
+# debug模式
+debug: false
+
+# spring配置
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  # 彩色终端支持
+  output:
+    ansi:
+      enabled: detect
+
+
+#MyBatisPlus配置
+mybatis-plus:
+  # java目录: classpath:/com/yourpackage/*/mapper/*Mapper.xml
+  # resource目录: classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath:/com/mq/rabbitmq/mappers/xmls/**/*.xml
+  # 别名包扫描路径
+  typeAliasesPackage: com.mq.rabbitmq.domains
+  # MyBatis-Plus 全局策略配置
+  global-config:
+    # DB策略配置
+    db-config:
+      # 全局默认主键类型 :
+      # INPUT 用户输入ID
+      # ID_WORKER 全局唯一ID，Long类型的主键
+      # ID_WORKER_STR 字符串全局唯一IDs
+      # UUID 全局唯一ID，UUID类型的主键
+      # NONE 该类型为未设置主键类型
+      id-type: AUTO
+      # 字段策略
+      field-strategy: not_null
+      # 表名是否使用下划线命名
+      table-underline: true
+      #  entity自动生成的 where条件中String类型字段是否使用LIKE
+      column-like: false
+      # 数据库类型
+      db-type: mysql
+      # 逻辑已删除值
+      logic-delete-value: 1
+      # 逻辑未删除值
+      logic-not-delete-value: 0
+
+  #原生MyBatis配置
+  configuration:
+    # 是否开启下划线转驼峰命名规则
+    map-underscore-to-camel-case: true
+    # 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存
+    # cache-enabled: false
+    # 配置JdbcTypeForNull
+    jdbc-type-for-null: 'null'
+
+#rabbitmq
+
+
+mq.env: local
+
+basic:
+  info:
+    queue:
+      name: ${mq.env}:basic:info:mq:queue
+    exchange:
+      name: ${mq.env}:basic:info:mq:exchange
+    routing:
+      key:
+        name: ${mq.env}:basic:info:mq:routing.key
+
+product:
+  robbing:
+    mq:
+      queue:
+        name: ${mq.env}:product:robbing:mq:queue
+      exchange:
+        name: ${mq.env}:product:robbing:mq:exchange
+      routing:
+        key:
+          name: ${mq.env}:product:robbing:mq:routing:key
+
+simple:
+  mq:
+    queue:
+      name: ${mq.env}.simple.mq.queue
+    exchange:
+      name: ${mq.env}.simple.mq.exchange
+    routing:
+      key:
+        name: ${mq.env}.simple.mq.routing.key
+
+  dead:
+    queue:
+      name: ${mq.env}.simple.dead.queue
+    exchange:
+      name: ${mq.env}.simple.dead.exchange
+    routing:
+      key:
+        name: ${mq.env}.simple.dead.routing.key
+
+  produce:
+    queue:
+      name: ${mq.env}.simple.produce.queue
+    exchange:
+      name: ${mq.env}.simple.produce.exchange
+    routing:
+      key:
+        name: ${mq.env}.simple.produce.routing.key
+
+user:
+  order:
+    queue:
+      name: ${mq.env}.user.order.queue
+    exchange:
+      name: ${mq.env}.user.order.exchange
+    routing:
+      key:
+        name: ${mq.env}.user.order.routing.key
+
+    dead:
+      queue:
+        name: ${mq.env}.user.order.dead.queue
+      exchange:
+        name: ${mq.env}.user.order.dead.exchange
+      routing:
+        key:
+          name: ${mq.env}.user.order.dead.routing.key
+
+      real:
+        queue:
+          name: ${mq.env}.user.order.dead.real.queue
+      produce:
+#        queue:
+#          name: ${mq.env}.user.order.dead.produce.queue
+        exchange:
+          name: ${mq.env}.user.order.dead.produce.exchange
+        routing:
+          key:
+            name: ${mq.env}.user.order.dead.produce.routing.key
+
+log:
+  system:
+    queue:
+      name: ${mq.env}.log.system.queue
+    exchange:
+      name: ${mq.env}.log.system.exchange
+    routing:
+      key:
+        name: ${mq.env}.log.system.routing.key
+
+  user:
+    queue:
+      name: ${mq.env}.log.user.queue
+    exchange:
+      name:  ${mq.env}.log.user.exchange
+    routing:
+      key:
+        name: ${mq.env}.log.user.routing.key
+
+mail:
+  queue:
+    name: ${mq.env}.mail.queue
+  exchange:
+    name: ${mq.env}.mail.exchange
+  routing:
+    key:
+      name: ${mq.env}.mail.routing.key
+
+
+dynamic:
+  dead:
+    queue:
+      name: ${mq.env}.dynamic.dead.queue
+    exchange:
+      name: ${mq.env}.dynamic.dead.exchange
+    routing:
+      key:
+        name: ${mq.env}.dynamic.dead.routing.key
+
+    real:
+      queue:
+        name: ${mq.env}.dynamic.dead.real.queue
+    produce:
+#      queue:
+#        name: ${mq.env}.dynamic.dead.produce.queue
+      exchange:
+        name: ${mq.env}.dynamic.dead.produce.exchange
+      routing:
+        key:
+          name: ${mq.env}.dynamic.dead.produce.routing.key
+
+---
+# 开发环境
+spring:
+  profiles: dev
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_springboot?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+
+  cache:
+    type: redis
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      concurrency: 10
+      max-concurrency: 20
+      prefetch: 5
+    virtual-host: /
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+
+#邮件配置
+  boot:
+    mail:
+      properties:
+        host: smtp.qq.com
+        port: 465
+        userName: 1974544863@qq.com
+        password: cmtvsjvhonkjdaje
+        protocol: smtp
+        needAuth: true
+        sslClass: javax.net.ssl.SSLSocketFactory
+
+mail:
+  from: 290745553@qq.com
+  to: 849292284@qq.com
+  by: 849292284@qq.com
+  subject: 这是SpringBoot整合Rabbitmq的邮件
+  content: 您好，这是RabbitMQ实战系列第二阶段的内容-用于注册时异步发送邮件进行邮箱验证!
+
+logging:
+  path: D:\\WorkSpaceJavaLog\\SpringBoot-RabbitMQ\\logs
+  file: springboot-rabbitmq-01
+  level:
+    root: info
+    com:
+      mq: debug
+#    org:
+#      springframework: debug
+#    org.springframework.boot.autoconfigure: info
+#    org.springframework.web.servlet.view.freemarker: info
+---
+
+# 生产环境
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_springboot?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+
+mybatis-plus:
+  configuration:
+    cache-enabled: true
+
+logging:
+  level:
+    root: info
+  path: /log
+  file: accounting.log
+---
