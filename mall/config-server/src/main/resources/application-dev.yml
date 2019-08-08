@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.10:3306/v7_statistics?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      web-stat-filter:
+        enabled: false
+      goods:
+        url: jdbc:mysql://192.168.1.10:3306/v7_goods?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+
+      member:
+        url: jdbc:mysql://192.168.1.10:3306/v7_member?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+
+      statistic:
+        url: jdbc:mysql://192.168.1.10:3306/v7_statistics?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+
+      system:
+        url: jdbc:mysql://192.168.1.10:3306/v7_system?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+
+      trade:
+        url: jdbc:mysql://192.168.1.10:3306/v7_trade?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+
+      distribution:
+        url: jdbc:mysql://192.168.1.10:3306/v7_distribution?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+mall:
+  product: stand
+
+  data:
+    elasticsearch:
+      cluster-name: lxb
+      cluster-nodes: 127.0.0.1:9300
+      index-name: mall
