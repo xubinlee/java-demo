@@ -3,10 +3,6 @@ package com.ex.study;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Test {
     private final static Logger logger = LoggerFactory.getLogger(Test.class);
     public static void main(String[] args) throws InterruptedException {
@@ -32,7 +28,6 @@ public class Test {
 //                logger.info(Thread.currentThread().getName());
 //            }
 //        }
-
     }
 }
 

@@ -3,21 +3,21 @@ package com.ex.study;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.sql.SQLOutput;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
-
 public class LambdaTest {
     public static void main(String[] args) {
 //        MyInterface consumer = (s) -> System.out.println(s);
-        List<Person> people = Arrays.asList(
-                new Person("san", "zhang", 25),
-                new Person("si","li",28),
-                new Person("wu","wang",18));
-        people.stream().filter(s -> s.getLastName().startsWith("z"))
-        .forEach(System.out::println);
-
+//        List<Person> people = Arrays.asList(
+//                new Person("san", "zhang", 25),
+//                new Person("si","li",28),
+//                new Person("wu","wang",18));
+//        people.stream().filter(s -> s.getLastName().startsWith("z"))
+//        .forEach(System.out::println);
+        Short num =(short)Math.abs(Short.MIN_VALUE);
+        System.out.println(num);
+        double i = Double.NaN;
+        System.out.println(i != i);
+        double infinity = Double.POSITIVE_INFINITY;
+        System.out.println(infinity==infinity+1);
     }
 }
 
