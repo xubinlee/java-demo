@@ -5,21 +5,24 @@ import lombok.Getter;
 
 public class LambdaTest {
     public static void main(String[] args) {
-//        MyInterface consumer = (s) -> System.out.println(s);
+        MyInterface consumer = (s) -> System.out.println(s);
 //        List<Person> people = Arrays.asList(
 //                new Person("san", "zhang", 25),
 //                new Person("si","li",28),
 //                new Person("wu","wang",18));
 //        people.stream().filter(s -> s.getLastName().startsWith("z"))
 //        .forEach(System.out::println);
-        Short num =(short)Math.abs(Short.MIN_VALUE);
-        System.out.println(num);
-        double i = Double.NaN;
-        System.out.println(i != i);
-        double infinity = Double.POSITIVE_INFINITY;
-        System.out.println(infinity==infinity+1);
+    }
+    void numberTest(){
+        //        Short num =(short)Math.abs(Short.MIN_VALUE);
+//        System.out.println(num);
+//        double i = Double.NaN;
+//        System.out.println(i != i);
+//        double infinity = Double.POSITIVE_INFINITY;
+//        System.out.println(infinity==infinity+1);
     }
 }
+
 
 @AllArgsConstructor
 class Person{

@@ -3,9 +3,12 @@ package com.ex.study;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Test {
     private final static Logger logger = LoggerFactory.getLogger(Test.class);
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
 //        BigDecimal d3 = new BigDecimal("1234500");
 //        BigDecimal d4 = d3.stripTrailingZeros();
 //        System.out.println(d4.scale());
@@ -28,6 +31,16 @@ public class Test {
 //                logger.info(Thread.currentThread().getName());
 //            }
 //        }
+        Integer[] goodsIds = new Integer[]{1,2,3};
+        List<Object> term = new ArrayList<>();
+        String[] goods = new String[goodsIds.length];
+        for(int i = 0 ; i<goodsIds.length; i++ ){
+            goods[i] = "?";
+            term.add(goodsIds[i]);
+        }
+        String str = StringUtil.arrayToString(goods, ",");
+        String sql = "select * from es_goods where goods_id in ("+str+")";
+        System.out.println(term.toArray());
     }
 }
 

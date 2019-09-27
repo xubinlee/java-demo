@@ -1,10 +1,9 @@
-package com.enation.app.javashop.framework.context;
+package com.ex.study;
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
- 
 
 /**
  *  用ThreadLocal来存储Session,以便实现Session any where 
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.1
  * 新增request any where
  */
-public class ThreadContextHolder  {
+public class ThreadContextHolder {
 
 	private static ThreadLocal<HttpServletRequest> requestThreadLocalHolder = new ThreadLocal<HttpServletRequest>();
 	private static ThreadLocal<HttpServletResponse> responseThreadLocalHolder = new ThreadLocal<HttpServletResponse>();

@@ -1,9 +1,12 @@
-package com.enation.app.javashop.framework.elasticsearch;
+package com.lxb.framework.elasticsearch;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by kingapex on 2018/7/18.
@@ -13,22 +16,20 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
  * @since 7.0.0
  * 2018/7/18
  */
+@Component
 @Configuration
+@ConfigurationProperties(prefix = "spring.data.elasticsearch")
 public class EsConfig {
 
-    @Value("${spring.data.elasticsearch.cluster-name}")
     private String clusterName;
 
-    @Value("${spring.data.elasticsearch.xpack.security.user:#{null}}")
     private String userPass;
 
-    @Value("${spring.data.elasticsearch.cluster-nodes}")
     private String nodes;
 
     /**
      * 索引名称
      */
-    @Value("${spring.data.elasticsearch.index-name}")
     private String indexName;
 
     public String getIndexName() {
@@ -37,6 +38,30 @@ public class EsConfig {
 
     public void setIndexName(String indexName) {
         this.indexName = indexName;
+    }
+
+    public String getClusterName() {
+        return clusterName;
+    }
+
+    public void setClusterName(String clusterName) {
+        this.clusterName = clusterName;
+    }
+
+    public String getUserPass() {
+        return userPass;
+    }
+
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
+
+    public String getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(String nodes) {
+        this.nodes = nodes;
     }
 
     @Bean

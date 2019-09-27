@@ -1,6 +1,5 @@
-package com.enation.app.javashop.framework.util;
+package com.ex.study;
 
-import com.enation.app.javashop.framework.context.ThreadContextHolder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

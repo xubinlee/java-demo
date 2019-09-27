@@ -30,7 +30,7 @@ class Red implements Color{
 class Yellow implements Color{
     @Override
     public String getColor() {
-        return "原色的";
+        return "黄色的";
     }
 }
 
